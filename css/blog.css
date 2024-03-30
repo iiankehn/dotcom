@@ -67,7 +67,7 @@ blockquote {
     float: left;
 
     height: 200px;
-    width: 250px;
+    width: 200px;
 
     padding: 10px;
 }
@@ -75,7 +75,7 @@ blockquote {
 #blog-post {
     position: absolute;
     top: 0;
-    left: 260px;
+    left: 200px;
 
     padding: 10px;
 
