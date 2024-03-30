@@ -16,7 +16,7 @@ hr {
 
 /* GLOBAL LINKS */
 a:link {
-    color: #0072bc;
+    color: #aaa;
     text-decoration: none;
 }
 
@@ -26,7 +26,7 @@ a:hover {
 }
 
 a:visited {
-    color: #0072bc;
+    color: #aaa;
     text-decoration: none;
 }
 
