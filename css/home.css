@@ -84,13 +84,8 @@ blockquote {
 #universalnav {
     background-color: #333;
     width: 100%;
-
-    filter: blur(10px);
-    -webkit-filter: blur(10px);
-    opacity: 0.65;
-
-
 }
+
 #universalnav ul {
     list-style-type: none;
     margin: 0;
