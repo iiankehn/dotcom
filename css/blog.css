@@ -1,7 +1,7 @@
 /* Body */
 body {
-    background-color: white;
-    color: #111;
+    background-color: #232323;
+    color: white;
 
     font-family: Arial;
     font-size: 12pt;
@@ -26,7 +26,7 @@ a:hover {
 }
 
 a:visited {
-    color: #9DB2BF;
+    color: #0072bc;
     text-decoration: none;
 }
 
@@ -59,7 +59,7 @@ h3 {
 blockquote {
     padding: 5px;
 
-    border-right: 2px solid #111;
+    border-right: 2px solid white;
 }
 
 /* For /blog/index.html */
@@ -111,12 +111,203 @@ blockquote {
   #universalnav li a:hover {
     display: block;
     padding: 15px;
-    background-color: white;
-    color: #111;
+    background-color: #232323;
+    color: white;
 }
 
 #universalnav li a:visited {
     color: white;
+}
+
+/* Site Themeing based on system-default */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #232323;
+        color: white;
+    
+        font-family: Arial;
+        font-size: 12pt;
+    
+        margin: 0;
+        padding: 0;
+    }
+
+    /* GLOBAL LINKS */
+    a:link {
+        color: #0072bc;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #0072bc;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0072bc;
+        text-decoration: none;
+    }
+
+    /* Headings */
+    h1 {
+        font-size: 28pt;
+        color: #0072bc;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 20pt;
+        color: #0072bc;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    h3 {
+        font-size: 16pt;
+        color: #0072bc;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Quotes */
+    blockquote {
+        padding: 5px;
+
+        border-right: 2px solid white;
+    }
+
+    /* Universal Navigation */
+    #universalnav {
+        background-color: #0072bc;
+        width: 100%;
+    }
+
+    #universalnav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+  
+    #universalnav li {
+        float: left;
+    }
+  
+    #universalnav li a:link {
+        display: block;
+        padding: 15px;
+        color: white;
+    }
+
+    #universalnav li a:hover {
+        display: block;
+        padding: 15px;
+        background-color: #232323;
+        color: white;
+    }
+
+    #universalnav li a:visited {
+        color: white;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: white;
+        color: #111;
+    
+        font-family: Arial;
+        font-size: 12pt;
+    
+        margin: 0;
+        padding: 0;
+    }
+
+    /* GLOBAL LINKS */
+    a:link {
+        color: #0072bc;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #0072bc;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0072bc;
+        text-decoration: none;
+    }
+
+    /* Headings */
+    h1 {
+        font-size: 28pt;
+        color: #0072bc;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 20pt;
+        color: #0072bc;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    h3 {
+        font-size: 16pt;
+        color: #0072bc;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Quotes */
+    blockquote {
+        padding: 5px;
+
+        border-right: 2px solid #111;
+    }
+
+    /* Universal Navigation */
+    #universalnav {
+        background-color: #0072bc;
+        width: 100%;
+    }
+
+    #universalnav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+  
+    #universalnav li {
+        float: left;
+    }
+  
+    #universalnav li a:link {
+        display: block;
+        padding: 15px;
+        color: white;
+    }
+
+    #universalnav li a:hover {
+        display: block;
+        padding: 15px;
+        background-color: white;
+        color: #111;
+    }
+
+    #universalnav li a:visited {
+        color: white;
+    }
 }
 
 /* When device size is lower than 600px wide */
