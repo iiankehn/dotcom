@@ -1,0 +1,110 @@
+/* Body */
+body {
+    background-color: #222;
+    background-image: url('../images/forest-road.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    color: white;
+
+    font-family: Arial;
+    font-size: 12pt;
+
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    border: 1px dashed #555;
+}
+
+/* GLOBAL LINKS */
+a:link {
+    color: #aaa;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #aaa;
+    text-decoration: none;
+}
+
+/* Headings */
+h1 {
+    font-size: 28pt;
+    color: #aaa;
+
+    padding: 0;
+    margin: 0;
+}
+
+h2 {
+    font-size: 20pt;
+    color: #aaa;
+
+    padding: 0;
+    margin: 0;
+}
+
+h3 {
+    font-size: 16pt;
+    color: white;
+
+    padding: 0;
+    margin: 0;
+}
+
+/* Quotes */
+blockquote {
+    padding: 5px;
+
+    border-right: 2px solid white;
+}
+
+/* For home.html */
+#home-hero {
+    height: 200px;
+  
+    margin: 0;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+/* Universal Navigation */
+#universalnav {
+    background-color: #333;
+    width: 100%;
+}
+#universalnav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  #universalnav li {
+    float: left;
+  }
+  
+  #universalnav li a {
+    display: block;
+    padding: 15px;
+    color: white;
+  }
+
+  #universalnav li a:hover {
+    display: block;
+    padding: 15px;
+    background-color: #222;
+    color: #dddddd;
+}
