@@ -111,7 +111,7 @@ blockquote {
   #universalnav li a:hover {
     display: block;
     padding: 15px;
-    background-color: white;
+    background-color: #ddd;
     color: black;
 }
 
