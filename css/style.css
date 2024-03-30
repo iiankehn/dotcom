@@ -1,0 +1,38 @@
+/* Body */
+body {
+    background-color: #111;
+    color: white;
+
+    font-family: Arial;
+    font-size: 12pt;
+
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+}
+
+/* Headings */
+h1 {
+    font-size: 28pt;
+    color: #0072bc;
+
+    padding: 0;
+    margin: 0;
+}
+
+h2 {
+    font-size: 20pt;
+    color: #0072bc;
+
+    padding: 0;
+    margin: 0;
+}
+
+h3 {
+    font-size: 16pt;
+    color: white;
+
+    padding: 0;
+    margin: 0;
+}
