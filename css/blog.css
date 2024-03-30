@@ -61,7 +61,7 @@ blockquote {
 /* For /blog/index.html */
 #blog-hero {
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
     
     float: left;
@@ -74,7 +74,7 @@ blockquote {
 
 #blog-post {
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 200px;
 
     padding: 10px;
