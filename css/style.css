@@ -1,6 +1,6 @@
 /* Body */
 body {
-    background-color: #111;
+    background-color: #222;
     color: white;
 
     font-family: Arial;
@@ -8,13 +8,15 @@ body {
 
     margin: 0;
     padding: 0;
+}
 
-    text-align: center;
+hr {
+    border: 1px dashed #555;
 }
 
 /* GLOBAL LINKS */
 a:link {
-    color: #0072bc;
+    color: #aaa;
     text-decoration: none;
 }
 
@@ -24,14 +26,14 @@ a:hover {
 }
 
 a:visited {
-    color: #0072bc;
+    color: #aaa;
     text-decoration: none;
 }
 
 /* Headings */
 h1 {
     font-size: 28pt;
-    color: #0072bc;
+    color: #aaa;
 
     padding: 0;
     margin: 0;
@@ -39,7 +41,7 @@ h1 {
 
 h2 {
     font-size: 20pt;
-    color: #0072bc;
+    color: #aaa;
 
     padding: 0;
     margin: 0;
@@ -53,7 +55,14 @@ h3 {
     margin: 0;
 }
 
-/* For Home.html */
+/* Quotes */
+blockquote {
+    padding: 5px;
+
+    border-right: 2px solid white;
+}
+
+/* For home.html */
 #home-hero {
     height: 200px;
   
@@ -67,6 +76,10 @@ h3 {
 }
 
 /* Universal Navigation */
+#universalnav {
+    background-color: #333;
+    width: 100%;
+}
 #universalnav ul {
     list-style-type: none;
     margin: 0;
@@ -80,13 +93,13 @@ h3 {
   
   #universalnav li a {
     display: block;
-    padding: 8px;
-    color: #dddddd;
+    padding: 15px;
+    color: white;
   }
 
   #universalnav li a:hover {
     display: block;
-    padding: 8px;
-    background-color: #0072bc;
+    padding: 15px;
+    background-color: #222;
     color: #dddddd;
-  }
+}
