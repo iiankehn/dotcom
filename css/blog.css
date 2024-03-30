@@ -83,6 +83,10 @@ blockquote {
 }
 
 /* Universal Navigation */
+#universalnav {
+    background-color: white;
+    width: 100%;
+}
 #universalnav ul {
     list-style-type: none;
     margin: 0;
@@ -96,8 +100,8 @@ blockquote {
   
   #universalnav li a {
     display: block;
-    padding: 8px;
-    color: #dddddd;
+    padding: 15px;
+    color: #111;
   }
 
   #universalnav li a:hover {
