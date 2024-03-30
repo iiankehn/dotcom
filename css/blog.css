@@ -122,7 +122,7 @@ blockquote {
 /* Site Themeing based on system-default */
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: #232323;
+        background-color: #111;
         color: white;
     
         font-family: Arial;
@@ -182,7 +182,7 @@ blockquote {
 
     /* Universal Navigation */
     #universalnav {
-        background-color: #333;
+        background-color: #222;
         width: 100%;
     }
 
