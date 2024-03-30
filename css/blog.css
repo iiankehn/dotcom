@@ -84,7 +84,7 @@ blockquote {
 
 /* Universal Navigation */
 #universalnav {
-    background-color: white;
+    background-color: #333;
     width: 100%;
 }
 #universalnav ul {
@@ -101,7 +101,7 @@ blockquote {
   #universalnav li a {
     display: block;
     padding: 15px;
-    color: #111;
+    color: white;
   }
 
   #universalnav li a:hover {
