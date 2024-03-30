@@ -12,6 +12,22 @@ body {
     text-align: center;
 }
 
+/* GLOBAL LINKS */
+a:link {
+    color: #0072bc;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0072bc;
+    text-decoration: none;
+}
+
 /* Headings */
 h1 {
     font-size: 28pt;
@@ -52,6 +68,6 @@ blockquote {
     position: absolute;
     top: 50%;
     left: 50%;
-    
+
     transform: translate(-50%, -50%);
 }
