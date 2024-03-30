@@ -102,7 +102,7 @@ blockquote {
     float: left;
   }
   
-  #universalnav li a {
+  #universalnav li a:link {
     display: block;
     padding: 15px;
     color: white;
