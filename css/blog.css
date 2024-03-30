@@ -81,3 +81,28 @@ blockquote {
 
     max-width: 700px;
 }
+
+/* Universal Navigation */
+#universalnav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  #universalnav li {
+    float: left;
+  }
+  
+  #universalnav li a {
+    display: block;
+    padding: 8px;
+    color: #dddddd;
+  }
+
+  #universalnav li a:hover {
+    display: block;
+    padding: 8px;
+    background-color: #0072bc;
+    color: #dddddd;
+  }
