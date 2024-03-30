@@ -75,10 +75,9 @@ blockquote {
 #blog-post {
     position: absolute;
     top: 50px;
-    left: 200px;
+    left: 215px;
 
     padding: 10px;
-    margin-right: 10px;
 
     max-width: 700px;
 }
