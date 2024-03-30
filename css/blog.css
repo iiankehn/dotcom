@@ -118,3 +118,9 @@ blockquote {
 #universalnav li a:visited {
     color: white;
 }
+
+/* When device size is lower than 600px wide */
+@media screen and (max-width: 600px) {
+    #blog-hero {
+        visibility: hidden;
+    }
