@@ -10,6 +10,10 @@ body {
     padding: 0;
 }
 
+hr {
+    border: 1px dashed #555;
+}
+
 /* GLOBAL LINKS */
 a:link {
     color: #0072bc;
