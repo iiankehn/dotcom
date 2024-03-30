@@ -134,24 +134,24 @@ blockquote {
 
     /* GLOBAL LINKS */
     a:link {
-        color: #0072bc;
+        color: #ddd;
         text-decoration: none;
     }
 
     a:hover {
-        color: #0072bc;
+        color: #ddd;
         text-decoration: none;
     }
 
     a:visited {
-        color: #0072bc;
+        color: #ddd;
         text-decoration: none;
     }
 
     /* Headings */
     h1 {
         font-size: 28pt;
-        color: #0072bc;
+        color: #ddd;
 
         padding: 0;
         margin: 0;
@@ -159,7 +159,7 @@ blockquote {
 
     h2 {
         font-size: 20pt;
-        color: #0072bc;
+        color: #ddd;
 
         padding: 0;
         margin: 0;
@@ -167,7 +167,7 @@ blockquote {
 
     h3 {
         font-size: 16pt;
-        color: #0072bc;
+        color: #ddd;
 
         padding: 0;
         margin: 0;
@@ -182,7 +182,7 @@ blockquote {
 
     /* Universal Navigation */
     #universalnav {
-        background-color: #0072bc;
+        background-color: #333;
         width: 100%;
     }
 
@@ -206,7 +206,7 @@ blockquote {
     #universalnav li a:hover {
         display: block;
         padding: 15px;
-        background-color: #232323;
+        background-color: #111;
         color: white;
     }
 
