@@ -87,6 +87,8 @@ blockquote {
 }
 
 #blog-post img {
+    height: 540px;
+    width: 960px;
     object-fit: scale-down;
 }
 
