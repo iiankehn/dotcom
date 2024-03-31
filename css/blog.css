@@ -1,7 +1,7 @@
 /* Body */
 body {
-    background-color: #232323;
-    color: white;
+    background-color: white;
+    color: #111;
 
     font-family: Arial;
     font-size: 12pt;
@@ -59,7 +59,7 @@ h3 {
 blockquote {
     padding: 5px;
 
-    border-right: 2px solid white;
+    border-right: 2px solid #111;
 }
 
 /* For /blog/index.html */
@@ -111,8 +111,8 @@ blockquote {
   #universalnav li a:hover {
     display: block;
     padding: 15px;
-    background-color: #232323;
-    color: white;
+    background-color: white;
+    color: #111;
 }
 
 #universalnav li a:visited {
