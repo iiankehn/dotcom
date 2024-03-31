@@ -86,6 +86,10 @@ blockquote {
     max-width: 700px;
 }
 
+#blog-post img {
+    object-fit: scale-down;
+}
+
 /* Universal Navigation */
 #universalnav {
     background-color: #0072bc;
