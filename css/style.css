@@ -18,3 +18,19 @@ body {
 
   width: 600px;
 }
+
+/* Home and About Page Layouts */
+#home-content {
+  background-color: white;
+  color: #111;
+  
+  border-radius: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  width: 1200px;
+  padding: 10px;
+}
