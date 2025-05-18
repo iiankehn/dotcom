@@ -6,13 +6,28 @@
 }
 
 body {
-    background-image: url('images/IMG_0024.jpeg');
+    background-image: url('../images/IMG_0024.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
     color: white;
     position: relative;
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0072bc;
+    text-decoration: none;
 }
 
 .overlay {
