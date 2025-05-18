@@ -126,6 +126,18 @@ nav ul li a:hover:after {
     z-index: 2;
 }
 
+.btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 30px;
+    margin: 15px;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
 h1 {
     font-size: 4rem;
     margin-bottom: 20px;
