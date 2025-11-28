@@ -2,9 +2,12 @@
 This is the Sevan vNext (Beta) Project designed specifically for the development of iiankehn (dotcom) project. This repository contains all of the files associated with the website and is primarily intended for maintaining the website. 
 
 ## The Code
-The code for this project is publicly available because GitHub requires it to be available as a public repo unless you pay for an Enterprise license. I do not authorize personal or professional use without giving credit where credit is due. This project is being provided "as is" without support or warranty, so if you're having an issue with the website, all requests must go through me first. 
+The code for this project is publicly available because GitHub requires it to be available as a public repo for GitHub Pages unless you pay for an Enterprise license. At this time I am not accepting pull or push requests for this project as its primary intent is to serve iiankehn.com (dotcom) and the content witin the website. 
+
+At this time there are no current plans to release a product that will be publicly available to fork and use as your own. If that changes, I will make an announcement. 
 
 ## This project is not a charity
-As mentioned above, this projects primary intent is to serve the iiankehn.com (dotcom) website and nothing more. If you would like to see a general template of this project, I'd like to hear from you. Right now I am not working on a public project that you can use for your personal use as it is still under active development for my own use. Once the code is complete, I will make an update to the project, and announce a repo that you can work off of. 
+As mentioned above, this projects primary purpose is to serve the content on iiankehn.com (dotcom), use of this code for your own personal or professional use is strictly prohibitied unless otherwise granted by the author of this project. Use of the code or any of its content without persmission can/will result in legal litigation. You have been warned. 
 
-I will deny all fork and pull requests that come though. Don't even bother. 
+## What you should know before visiting the website
+While functionally the website is in a working state, it is not yet feature complete and may contain bugs or errors. I am working though some of the more common layout issues, but outside of that it will take some time to work out the kinks. This is an early milestone release, and will change before the final product is released. 
