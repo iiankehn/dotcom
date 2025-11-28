@@ -1,7 +1,7 @@
 # The Sevan vNext (Beta) Project
 This is the Sevan vNext (Beta) Project designed specifically for the development of iiankehn (dotcom) project. This repository contains all of the files associated with the website and is primarily intended for maintaining the website. 
 
-## The Code==
+## The Code
 The code for this project is publicly available because GitHub requires it to be available as a public repo unless you pay for an Enterprise license. I do not authorize personal or professional use without giving credit where credit is due. This project is being provided "as is" without support or warranty, so if you're having an issue with the website, all requests must go through me first. 
 
 ## This project is not a charity
