@@ -1,3 +1,6 @@
+# This project is being discontinued
+If you are visiting this project after December 25, 2025 this project has been discontinued and is being archived. We are shifting our focus to Sevan which is being hosted on Notion. The code for this project is being removed from the repo and is strictly serving as a redirect to the new site. 
+
 # The Sevan vNext (Beta) Project
 This is the Sevan vNext (Beta) Project designed specifically for the development of iiankehn (dotcom) project. This repository contains all of the files associated with the website and is primarily intended for maintaining the website. 
 
