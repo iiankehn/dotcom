@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased bg-black text-zinc-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog // Sevan Core</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        base: '#050505',
+                        surface: '#121212',
+                        muted: '#525252',
+                        accent: '#262626'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-base min-h-screen text-zinc-200 selection:bg-white selection:text-black">
+
+    <nav class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-6 z-50 mix-blend-difference bg-base/90 backdrop-blur-sm border-b border-white/5">
+        <a href="index.html" class="font-mono text-xs tracking-widest uppercase hover:text-zinc-400 transition-colors">
+            ← Return
+        </a>
+        <div class="font-mono text-xs text-muted">
+            Sevan Core
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
+
+        <header class="mb-20">
+            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-4">
+                TikTok was bought by a U.S. conglomerate of investors
+            </h1>
+            <p>While it is not quite over, the saga of TikTok is soon going to come to an end, and I am not entirely sure how I feel about it. For those of you who haven’t been paying attention. A law was passed last year to ban TikTok in the US because of foreign control from China and alleged concerns of National Security from Congress.</p> 
+            <br />
+            <p><a href="https://www.buzzfeednews.com/article/jasonwells/trump-signs-tiktok-executive-order">This fear is not new</a>, and has been around for a while now. But when Trump took office for a second term, he signed an executive order to bring TikTok back <a href="https://www.nbcnews.com/politics/supreme-court/tiktok-ban-supreme-court-ruling-bytedance-sell-rcna187150">(after the Surpreme Court shot down a ban)</a> and vowed to find companies that would be willing to take on the burden of hosting TikTok in the US without giving China access to US data. While the intentions were sound, I suppose, I didn’t think that it was honestly worth ripping apart a platform that millions of people used every day for allegations of National Security Threats, which the government still had not provided a foundation for.</p> 
+            <br />
+            <p>Like many others, I walked away from posting content on the platform out of concern for the platform being shut down until a deal had been made. Although the president had given us assurances that he would keep the platform open, many of us didn’t feel comfortable with the looming fact that this could all fall apart at any moment.</p>
+            <br />
+            <p><a href="https://www.engadget.com/social-media/we-have-more-details-on-the-tiktok-deal-including-some-ownership-statistics-163003507.html">Nonetheless, [according to Engadget</a>, the deal is supposed to finalize on January 22, 2026 pending final approval from the Chinese government. This deal would give Oracle, Silver Lake, and MGX stake in the company as well as maintaining some control from parent company ByteDance. In a statement to employees TikTok CEO Shou Chew said "With these agreements in place, our focus must stay where it's always been — firmly on delivering for our users, creators, businesses and the global TikTok community,”</p>
+            <br />
+            <p></p>As always, we will share more information as it becomes available.</p>
+
+        </header>
+
+        <div class="flex gap-4 mb-8 border-b border-zinc-900 pb-4 font-mono text-[10px] md:text-xs text-zinc-500 uppercase tracking-wide">
+            <button class="text-white">All Entries</button>
+            <button class="hover:text-white transition-colors">Engineering</button>
+            <button class="hover:text-white transition-colors">Design</button>
+            <button class="hover:text-white transition-colors">Manifestos</button>
+        </div>
+
+        <div class="flex flex-col">
