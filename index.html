@@ -1,13 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="antialiased bg-black text-zinc-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You are being redirected...</title>
-    <meta http-equiv="refresh" content="0; url=https://iiankehn.notion.site/Sevan-2c86fbc5f69280a2abe5f2bb779ecb70" />
-    <meta name="theme-color" content="#0072bc">
+    <title>Sevan Core</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        // Strict monochrome palette
+                        base: '#050505',
+                        surface: '#121212',
+                        muted: '#525252',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom scrollbar for Webkit */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        
+        /* Utility to hide/show sections smoothly */
+        .page-section {
+            transition: opacity 0.4s ease;
+            opacity: 1;
+        }
+        .hidden-section {
+            display: none;
+            opacity: 0;
+        }
+    </style>
 </head>
-<body>
-<p>You are being redirected to Notion. If it does not redirect in 5 seconds, <a href="https://iiankehn.notion.site/Sevan-2c86fbc5f69280a2abe5f2bb779ecb70">click here</a>.</p>
+<body class="bg-base min-h-screen flex flex-col font-sans selection:bg-white selection:text-black overflow-hidden relative">
+
+    <nav class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-6 z-50 mix-blend-difference text-white">
+        <div class="font-mono text-sm tracking-widest uppercase">
+            [ Your_Name ]
+        </div>
+        
+        <div class="flex gap-8 font-mono text-xs md:text-sm">
+            <button onclick="showPage('index')" class="hover:text-zinc-400 transition-colors uppercase tracking-wide">Index</button>
+            <button onclick="showPage('about')" class="hover:text-zinc-400 transition-colors uppercase tracking-wide">About</button>
+            <a href="https://yourblog.com" target="_blank" class="hover:text-zinc-400 transition-colors uppercase tracking-wide flex items-center gap-1">
+                Blog 
+                <span class="text-[10px]">↗</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative w-full h-screen">
+
+        <section id="index" class="page-section absolute inset-0 flex flex-col justify-center items-center px-6">
+            <div class="max-w-5xl w-full">
+                <div class="w-full h-px bg-zinc-800 mb-8"></div>
+                
+                <h1 class="text-5xl md:text-8xl font-light tracking-tighter leading-[0.9] text-white mb-8">
+                    DECENTRALIZED <br>
+                    <span class="text-zinc-500">THINKING.</span> <br>
+                    DIGITAL <br>
+                    <span class="text-zinc-500">CRAFTSMANSHIP.</span>
+                </h1>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
+                    <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
+                        :: BUILDING THE NEXT LAYER<br>
+                        :: BASED IN [LOCATION]<br>
+                        :: OPEN FOR COLLABORATION
+                    </p>
+                    
+                    <a href="mailto:hello@email.com" class="group border border-zinc-700 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300">
+                        <span class="font-mono text-sm">Initiate Contact</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="about" class="page-section hidden-section absolute inset-0 pt-32 pb-12 px-6 overflow-y-auto">
+            <div class="max-w-2xl mx-auto">
+                <span class="font-mono text-xs text-zinc-500 mb-4 block">01 // PROFILE</span>
+                
+                <h2 class="text-3xl md:text-4xl font-light text-white mb-8">
+                    Architecting silent systems in a noisy world.
+                </h2>
+                
+                <div class="prose prose-invert prose-lg text-zinc-400 leading-relaxed font-light">
+                    <p class="mb-6">
+                        I am a multidisciplinary developer and designer focused on Web3 interfaces and minimalist web experiences. My work strips away the unessential to focus on utility, privacy, and performance.
+                    </p>
+                    <p class="mb-6">
+                        Currently, I am exploring the intersection of zero-knowledge proofs and user interface design. I believe that complex protocols deserve simple, accessible front-ends.
+                    </p>
+                </div>
+
+                <div class="w-full h-px bg-zinc-800 my-12"></div>
+
+                <div class="grid grid-cols-2 gap-8 font-mono text-xs">
+                    <div>
+                        <span class="text-zinc-500 block mb-2">STACK</span>
+                        <ul class="text-zinc-300 space-y-1">
+                            <li>Solidity / Rust</li>
+                            <li>TypeScript</li>
+                            <li>React / Next.js</li>
+                            <li>IPFS</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block mb-2">SOCIAL</span>
+                        <ul class="text-zinc-300 space-y-1">
+                            <li><a href="#" class="hover:text-white underline decoration-zinc-700 underline-offset-4">GitHub</a></li>
+                            <li><a href="#" class="hover:text-white underline decoration-zinc-700 underline-offset-4">Twitter / X</a></li>
+                            <li><a href="#" class="hover:text-white underline decoration-zinc-700 underline-offset-4">Farcaster</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(el => {
+                el.classList.add('hidden-section');
+                el.style.display = 'none'; // Ensure it leaves layout flow
+            });
+
+            // Show target section
+            const target = document.getElementById(pageId);
+            target.style.display = (pageId === 'index') ? 'flex' : 'block';
+            
+            // Small timeout to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                target.classList.remove('hidden-section');
+            }, 10);
+        }
+    </script>
 </body>
 </html>
