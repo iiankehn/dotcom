@@ -51,12 +51,8 @@
         </div>
         
         <div class="flex gap-8 font-mono text-xs md:text-sm">
-            <button onclick="showPage('index')" class="hover:text-zinc-400 transition-colors uppercase tracking-wide">Index</button>
-            <button onclick="showPage('about')" class="hover:text-zinc-400 transition-colors uppercase tracking-wide">About</button>
-            <a href="https://yourblog.com" target="_blank" class="hover:text-zinc-400 transition-colors uppercase tracking-wide flex items-center gap-1">
-                Blog 
-                <span class="text-[10px]">↗</span>
-            </a>
+            <a href="#index" class="hover:underline">Home</a>
+            <a href="#about" class="hover:underline">About</a>
         </div>
     </nav>
 
@@ -83,68 +79,7 @@
                 </div>
             </div>
         </section>
-
-
-        <section id="about" class="page-section hidden-section absolute inset-0 pt-32 pb-12 px-6 overflow-y-auto">
-            <div class="max-w-2xl mx-auto">
-                <span class="font-mono text-xs text-zinc-500 mb-4 block">01 // PROFILE</span>
-                
-                <h2 class="text-3xl md:text-4xl font-light text-white mb-8">
-                    Architecting silent systems in a noisy world.
-                </h2>
-                
-                <div class="prose prose-invert prose-lg text-zinc-400 leading-relaxed font-light">
-                    <p class="mb-6">
-                        I am a multidisciplinary developer and designer focused on Web3 interfaces and minimalist web experiences. My work strips away the unessential to focus on utility, privacy, and performance.
-                    </p>
-                    <p class="mb-6">
-                        Currently, I am exploring the intersection of zero-knowledge proofs and user interface design. I believe that complex protocols deserve simple, accessible front-ends.
-                    </p>
-                </div>
-
-                <div class="w-full h-px bg-zinc-800 my-12"></div>
-
-                <div class="grid grid-cols-2 gap-8 font-mono text-xs">
-                    <div>
-                        <span class="text-zinc-500 block mb-2">STACK</span>
-                        <ul class="text-zinc-300 space-y-1">
-                            <li>Solidity / Rust</li>
-                            <li>TypeScript</li>
-                            <li>React / Next.js</li>
-                            <li>IPFS</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <span class="text-zinc-500 block mb-2">SOCIAL</span>
-                        <ul class="text-zinc-300 space-y-1">
-                            <li><a href="#" class="hover:text-white underline decoration-zinc-700 underline-offset-4">GitHub</a></li>
-                            <li><a href="#" class="hover:text-white underline decoration-zinc-700 underline-offset-4">Twitter / X</a></li>
-                            <li><a href="#" class="hover:text-white underline decoration-zinc-700 underline-offset-4">Farcaster</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <script>
-        function showPage(pageId) {
-            // Hide all sections
-            document.querySelectorAll('.page-section').forEach(el => {
-                el.classList.add('hidden-section');
-                el.style.display = 'none'; // Ensure it leaves layout flow
-            });
-
-            // Show target section
-            const target = document.getElementById(pageId);
-            target.style.display = (pageId === 'index') ? 'flex' : 'block';
-            
-            // Small timeout to allow display:block to apply before opacity transition
-            setTimeout(() => {
-                target.classList.remove('hidden-section');
-            }, 10);
-        }
-    </script>
 </body>
 </html>
