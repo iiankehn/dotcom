@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased bg-black text-zinc-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About // Sevan Core</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        base: '#050505',
+                        surface: '#121212',
+                        muted: '#737373',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-base min-h-screen text-zinc-200 selection:bg-white selection:text-black">
+
+    <nav class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-6 z-50 mix-blend-difference bg-base/80 backdrop-blur-sm border-b border-white/5">
+        <a href="index.html" class="font-mono text-xs tracking-widest uppercase hover:text-zinc-400 transition-colors">
+            ← Return
+        </a>
+        <div class="font-mono text-xs text-muted">
+            Sevan Core
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+        
+        <header class="mb-24">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-8">
+                    <h1 class="text-4xl md:text-6xl font-light tracking-tight leading-tight mb-6">
+                        Sevan Core. One place to rule them all. <br>
+                        <span class="text-muted">silicon logic</span> and 
+                        <span class="text-white">human intuition.</span>
+                    </h1>
+                </div>
+                <div class="md:col-span-4 flex flex-col justify-end items-start md:items-end">
+                    <div class="flex items-center gap-3 border border-zinc-
