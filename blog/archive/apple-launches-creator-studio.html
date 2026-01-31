@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased bg-black text-zinc-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog // Sevan Core</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        base: '#050505',
+                        surface: '#121212',
+                        muted: '#525252',
+                        accent: '#262626'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-base min-h-screen text-zinc-200 selection:bg-white selection:text-black">
+
+    <nav class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-6 z-50 mix-blend-difference bg-base/90 backdrop-blur-sm border-b border-white/5">
+        <a href="../../index.html" class="font-mono text-xs tracking-widest uppercase hover:text-zinc-400 transition-colors">
+            ← Return
+        </a>
+        <div class="font-mono text-xs text-muted">
+            Sevan Core
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
+
+        <header class="mb-20">
+            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-4">
+                Apple launches Creator Studio
+            </h1>
+            <p>Apple launched Creator Studio today for iPad and Mac today for users who are looking to take advantage of all Apple’s pro level apps all in one subscription. This new subscription is available for individuals (with up to 5 family members using Family Share) and Students.</p>
+            <br />
+            <p>The Individual Subscription is $12.99/month or $129/year or $2.99/month or $29/year for Students. 
+            The suite includes the following pro apps.</p>
+            <ul>
+                <li>Final Cut Pro</li>
+                <li>Motion</li>
+                <li>Compressor</li>
+                <li>Logic Pro</li>
+                <li>MainStage</li>
+                <li>Pixelmator Pro</li>
+            </ul>
+            <p>It also includes new templates and features for the following productivity apps</p>
+            <ul>
+                <li>Numbers</li>
+                <li>Pages</li>
+                <li>Keynote</li>
+                <li>Freeform</li>
+            </ul>
+            <br />
+            <p>It is available now in the App Store, and Apple is offering a 30-day trial for those who are wishing to take advantage of it.</p>
+        </header>
+
+        <div class="flex gap-4 mb-8 border-b border-zinc-900 pb-4 font-mono text-[10px] md:text-xs text-zinc-500 uppercase tracking-wide">
+            <button class="text-white">All Entries</button>
+            <button class="hover:text-white transition-colors">Engineering</button>
+            <button class="hover:text-white transition-colors">Design</button>
+            <button class="hover:text-white transition-colors">Manifestos</button>
+        </div>
+
+        <div class="flex flex-col">
