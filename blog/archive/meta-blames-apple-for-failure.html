@@ -38,25 +38,51 @@
 
     <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
 
-        <header class="mb-20">
-            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-4">
-                <a href="archive/meta-blames-apple-for-failure.html">Meta blames Apple for failure</a>
-            </h1>
-            <p><small>Published on February 5, 2026 by <a href="about.html">Iian Kehn</a></small></p>
-            <br />
-            <p>It's no secret that there's no love lost between Meta and Apple, but the latest report from AppleInsider reveals that Mark Zuckerberg's frustrations with Cupertino are deeper and more personal than just a disagreement over privacy settings. Newly surfaced internal emails, which came to light through a lawsuit filed by the New Mexico Attorney General, show Zuckerberg complaining to his leadership team about what he perceives as a massive double standard. He argues that while Meta is constantly under the microscope for its impact on teen safety and mental health, Apple essentially gets a "free pass" for iMessage, which he claims facilitates similar behaviors without the same level of public or regulatory scrutiny.</p>
-            <br />
-            <p>The internal documents highlight a specific grievance: Zuckerberg feels that because iMessage is a private messaging service rather than a public-facing social feed, it escapes the "intense scrutiny" Meta faces regarding content moderation and child safety. In the emails, he expresses frustration that Meta is forced to spend billions on safety and human reviewers while Apple, in his view, doesn't have to account for how its tools are used by minors. He goes as far as to suggest that Apple isn't even looking for these problems, which allows them to maintain a cleaner reputation in the eyes of the public and lawmakers.</p>
-            <br />
-            <p>However, the article notes that Zuckerberg's comparison might be ignoring some fundamental differences in how these platforms operate. While Meta's business model is built on algorithmic engagement and public sharing, Apple's iMessage is an end-to-end encrypted communication tool. The report also points out that Apple actually has implemented several safety features, such as Communication Safety tools that blur sensitive content for minors, which contradicts Zuckerberg's internal claims that Apple does "nothing." Ultimately, the piece paints a picture of a Meta CEO who feels unfairly targeted and is increasingly vocal—at least behind closed doors—about shifting the narrative toward his rivals.</p>
+        <header id="post-header" class="mb-20">
+            <!-- Post content will be injected from posts.js -->
         </header>
 
-    <footer class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
-            <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
-                Copyright &copy; 2026 Sevan Core, LLC. All rights reserved.
-            </p>
-        </div>
-    </footer>
+        <footer class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
+                <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
+                    Copyright &copy; 2026 Sevan Core, LLC. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../posts.js"></script>
+    <script>
+        (function () {
+            const slug = "meta-blames-apple-for-failure";
+            if (!window.BLOG_POSTS) return;
+
+            const post = window.BLOG_POSTS.find(function (p) {
+                return p.slug === slug;
+            });
+
+            const container = document.getElementById('post-header');
+            if (!post || !container) return;
+
+            const h1 = document.createElement('h1');
+            h1.className = 'text-4xl md:text-6xl font-light tracking-tight mb-4';
+            h1.textContent = post.title || "Meta blames Apple for failure";
+
+            const meta = document.createElement('p');
+            meta.innerHTML = '<small>Published on ' +
+                (post.publishedLabel || "February 5, 2026") +
+                ' by <a href="../../about.html">Iian Kehn</a></small>';
+
+            const bodyWrapper = document.createElement('div');
+            if (post.articleHtml) {
+                bodyWrapper.innerHTML = post.articleHtml;
+            }
+
+            container.appendChild(h1);
+            container.appendChild(meta);
+            container.appendChild(document.createElement('br'));
+            container.appendChild(bodyWrapper);
+        })();
+    </script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+{
+  "name": "sevan-core-dotcom",
+  "version": "17.1.0",
+  "private": true,
+  "description": "Sevan Core site tools (admin panel for blog posts)",
+  "scripts": {
+    "admin": "node admin/server.js"
+  },
+  "dependencies": {
+    "@simplewebauthn/server": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "base64url": "^3.0.1",
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "selfsigned": "^2.1.1",
+    "uuid": "^9.0.1"
+  }
+}
+

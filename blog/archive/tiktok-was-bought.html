@@ -38,29 +38,51 @@
 
     <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
 
-        <header class="mb-20">
-            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-4">
-                TikTok was bought by a U.S. conglomerate of investors
-            </h1>
-            <p><small>Published on January 26, 2026 by <a href="about.html">Iian Kehn</a></small></p>
-            <p>While it is not quite over, the saga of TikTok is soon going to come to an end, and I am not entirely sure how I feel about it. For those of you who haven’t been paying attention. A law was passed last year to ban TikTok in the US because of foreign control from China and alleged concerns of National Security from Congress.</p> 
-            <br />
-            <p><a href="https://www.buzzfeednews.com/article/jasonwells/trump-signs-tiktok-executive-order">This fear is not new</a>, and has been around for a while now. But when Trump took office for a second term, he signed an executive order to bring TikTok back <a href="https://www.nbcnews.com/politics/supreme-court/tiktok-ban-supreme-court-ruling-bytedance-sell-rcna187150">(after the Surpreme Court shot down a ban)</a> and vowed to find companies that would be willing to take on the burden of hosting TikTok in the US without giving China access to US data. While the intentions were sound, I suppose, I didn’t think that it was honestly worth ripping apart a platform that millions of people used every day for allegations of National Security Threats, which the government still had not provided a foundation for.</p> 
-            <br />
-            <p>Like many others, I walked away from posting content on the platform out of concern for the platform being shut down until a deal had been made. Although the president had given us assurances that he would keep the platform open, many of us didn’t feel comfortable with the looming fact that this could all fall apart at any moment.</p>
-            <br />
-            <p><a href="https://www.engadget.com/social-media/we-have-more-details-on-the-tiktok-deal-including-some-ownership-statistics-163003507.html">Nonetheless, [according to Engadget</a>, the deal is supposed to finalize on January 22, 2026 pending final approval from the Chinese government. This deal would give Oracle, Silver Lake, and MGX stake in the company as well as maintaining some control from parent company ByteDance. In a statement to employees TikTok CEO Shou Chew said "With these agreements in place, our focus must stay where it's always been — firmly on delivering for our users, creators, businesses and the global TikTok community,”</p>
-            <br />
-            <p></p>As always, we will share more information as it becomes available.</p>
-
+        <header id="post-header" class="mb-20">
+            <!-- Post content will be injected from posts.js -->
         </header>
 
-    <footer class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
-            <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
-                Copyright &copy; 2026 Sevan Core, LLC. All rights reserved.
-            </p>
-        </div>
-    </footer>
+        <footer class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
+                <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
+                    Copyright &copy; 2026 Sevan Core, LLC. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../posts.js"></script>
+    <script>
+        (function () {
+            const slug = "tiktok-was-bought";
+            if (!window.BLOG_POSTS) return;
+
+            const post = window.BLOG_POSTS.find(function (p) {
+                return p.slug === slug;
+            });
+
+            const container = document.getElementById('post-header');
+            if (!post || !container) return;
+
+            const h1 = document.createElement('h1');
+            h1.className = 'text-4xl md:text-6xl font-light tracking-tight mb-4';
+            h1.textContent = post.title || "TikTok was bought by a U.S. conglomerate of investors";
+
+            const meta = document.createElement('p');
+            meta.innerHTML = '<small>Published on ' +
+                (post.publishedLabel || "January 26, 2026") +
+                ' by <a href="../../about.html">Iian Kehn</a></small>';
+
+            const bodyWrapper = document.createElement('div');
+            if (post.articleHtml) {
+                bodyWrapper.innerHTML = post.articleHtml;
+            }
+
+            container.appendChild(h1);
+            container.appendChild(meta);
+            container.appendChild(document.createElement('br'));
+            container.appendChild(bodyWrapper);
+        })();
+    </script>
 </body>
 </html>

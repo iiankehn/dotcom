@@ -64,8 +64,10 @@
             <div class="max-w-5xl w-full">
                 <div class="w-full h-px bg-zinc-800 mb-8"></div>
                 <p>Latest News</p>
-                <h1 class="text-5xl md:text-8xl font-light tracking-tighter leading-[0.9] text-white mb-8">
-                    <a href="blog/archive/chatgpt-may-be-coming-to-carplay.html">ChatGPT <span class="text-zinc-500">may be coming</span> to Apple CarPlay</a>
+                <h1 id="latest-headline" class="text-5xl md:text-8xl font-light tracking-tighter leading-[0.9] text-white mb-8">
+                    <a id="latest-link" href="blog/archive/chatgpt-may-be-coming-to-carplay.html">
+                        ChatGPT <span class="text-zinc-500">may be coming</span> to Apple CarPlay
+                    </a>
                 </h1>
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
                     <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
@@ -74,6 +76,34 @@
                 </div>
         </section>
     </main>
+
+    <script src="blog/posts.js"></script>
+    <script>
+        (function () {
+            if (!window.BLOG_POSTS) return;
+
+            // Find newest post by publishedOn
+            var posts = window.BLOG_POSTS.slice().sort(function (a, b) {
+                var da = a.publishedOn ? new Date(a.publishedOn) : 0;
+                var db = b.publishedOn ? new Date(b.publishedOn) : 0;
+                return db - da;
+            });
+
+            if (!posts.length) return;
+
+            var latest = posts[0];
+            if (!latest || !latest.slug || !latest.title) return;
+
+            var headlineEl = document.getElementById('latest-headline');
+            var linkEl = document.getElementById('latest-link');
+            if (!headlineEl || !linkEl) return;
+
+            var archivePath = (latest.archivePath || ('archive/' + latest.slug + '.html')).replace(/^\/+/, '');
+
+            linkEl.href = '/blog/' + archivePath;
+            linkEl.textContent = latest.title;
+        })();
+    </script>
 
 </body>
 </html>

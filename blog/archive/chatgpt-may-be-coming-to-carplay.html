@@ -6,7 +6,6 @@
     <title>Blog // Sevan Core</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
@@ -39,25 +38,51 @@
 
     <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
 
-        <header class="mb-20">
-            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-4">
-                <a href="archive/chatgpt-may-be-coming-to-carplay.html">ChatGPT may be coming to Apple CarPlay</a>
-            </h1>
-            <p><small>Published on February 6, 2026 by <a href="about.html">Iian Kehn</a></small></p>
-            <br />
-            <p>If you've spent any time with the current version of CarPlay, you know that Siri has long been the only voice assistant allowed in the driver's seat. However, a new report from *The Verge* suggests that Apple is finally getting ready to break that monopoly. According to the rumor, an upcoming iOS update could open the door for third-party AI chatbots—like ChatGPT, Google Gemini, and Claude—to integrate directly with the CarPlay interface. This would mark a significant shift in how Apple manages its automotive ecosystem, potentially allowing drivers to use more advanced conversational AI for hands-free tasks that Siri currently struggles to handle.</p>
-            <br />
-            <p>The move appears to be a response to the rapid evolution of generative AI and the fact that several automakers are already starting to bake their own AI voice assistants directly into vehicle dashboards. While you can technically use these chatbot apps on your iPhone today, they aren't optimized for the road; this update would reportedly introduce a "voice-enabled" category for CarPlay apps. This would allow users to trigger these assistants through the car's display and microphones, though the report notes that Apple doesn't plan to let you replace Siri entirely. You'd likely still need to open the specific app to use its voice mode, as the system-level "Siri" button and wake word will remain tied to Apple's own assistant.</p>
-            <br />
-            <p>While Apple is already working on its own major AI overhaul for Siri (including a high-profile partnership with Google), this rumored "open-door" policy suggests a more flexible approach to the dashboard. By allowing these third-party agents a spot on the screen, Apple seems to be prioritizing a safer, more native-feeling experience for users who are already turning to other LLMs for complex queries. There's no official word on whether this will arrive with a mid-cycle iOS 26 update or be saved for the debut of iOS 27, but it's a clear signal that the passenger-side experience is about to get a lot more talkative.</p>
+        <header id="post-header" class="mb-20">
+            <!-- Post content will be injected from posts.js -->
         </header>
 
-    <footer class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
-            <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
-                Copyright &copy; 2026 Sevan Core, LLC. All rights reserved.
-            </p>
-        </div>
-    </footer>
+        <footer class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
+                <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
+                    Copyright &copy; 2026 Sevan Core, LLC. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../posts.js"></script>
+    <script>
+        (function () {
+            const slug = "chatgpt-may-be-coming-to-carplay";
+            if (!window.BLOG_POSTS) return;
+
+            const post = window.BLOG_POSTS.find(function (p) {
+                return p.slug === slug;
+            });
+
+            const container = document.getElementById('post-header');
+            if (!post || !container) return;
+
+            const h1 = document.createElement('h1');
+            h1.className = 'text-4xl md:text-6xl font-light tracking-tight mb-4';
+            h1.textContent = post.title || "ChatGPT may be coming to Apple CarPlay";
+
+            const meta = document.createElement('p');
+            meta.innerHTML = '<small>Published on ' +
+                (post.publishedLabel || "February 6, 2026") +
+                ' by <a href="../../about.html">Iian Kehn</a></small>';
+
+            const bodyWrapper = document.createElement('div');
+            if (post.articleHtml) {
+                bodyWrapper.innerHTML = post.articleHtml;
+            }
+
+            container.appendChild(h1);
+            container.appendChild(meta);
+            container.appendChild(document.createElement('br'));
+            container.appendChild(bodyWrapper);
+        })();
+    </script>
 </body>
 </html>

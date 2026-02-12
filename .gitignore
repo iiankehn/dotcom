@@ -1,0 +1,17 @@
+# Admin authentication files (encrypted)
+admin/users.json
+admin/.encryption-key
+
+# SSL certificates (self-signed for local dev)
+admin/.ssl-cert.pem
+admin/.ssl-key.pem
+
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
