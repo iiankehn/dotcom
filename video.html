@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video // Sevan Core</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -23,6 +23,16 @@
             }
         }
     </script>
+    <style>
+        /* TikTok embeds: constrain width and center; single script loads all */
+        .tiktok-embed {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tiktok-embed section a {
+            color: inherit;
+        }
+    </style>
 </head>
 <body class="bg-base min-h-screen text-zinc-200 selection:bg-white selection:text-black">
 
@@ -36,24 +46,75 @@
     </nav>
 
     <main class="pt-24 px-6 max-w-3xl mx-auto pb-12">
-        <h1 class="text-4xl md:text-5xl font-light tracking-tight mb-8">Videos</h1>
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@iiankehn/video/7600988767087840543" data-video-id="7600988767087840543" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@iiankehn" href="https://www.tiktok.com/@iiankehn?refer=embed">@iiankehn</a> Apple Creator Studio is here <a title="tech" target="_blank" href="https://www.tiktok.com/tag/tech?refer=embed">#tech</a> <a title="apple" target="_blank" href="https://www.tiktok.com/tag/apple?refer=embed">#apple</a> <a title="creator" target="_blank" href="https://www.tiktok.com/tag/creator?refer=embed">#creator</a> <a title="studio" target="_blank" href="https://www.tiktok.com/tag/studio?refer=embed">#studio</a> <a target="_blank" title="♬ original sound - Iian Kehn" href="https://www.tiktok.com/music/original-sound-7600988764462844703?refer=embed">♬ original sound - Iian Kehn</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-        <br />
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@iiankehn/video/7599121093776952606" data-video-id="7599121093776952606" style="max-width: 605px;min-width: 325px; background-color: black; color: white;" > <section> <a target="_blank" title="@iiankehn" href="https://www.tiktok.com/@iiankehn?refer=embed">@iiankehn</a> My thoughts on Windows and Mac right now. Microsoft especially. <a title="windows" target="_blank" href="https://www.tiktok.com/tag/windows?refer=embed">#windows</a> <a title="microsoft" target="_blank" href="https://www.tiktok.com/tag/microsoft?refer=embed">#microsoft</a> <a title="ai" target="_blank" href="https://www.tiktok.com/tag/ai?refer=embed">#ai</a> <a title="mac" target="_blank" href="https://www.tiktok.com/tag/mac?refer=embed">#mac</a> <a title="apple" target="_blank" href="https://www.tiktok.com/tag/apple?refer=embed">#apple</a> <a target="_blank" title="♬ original sound - Iian Kehn" href="https://www.tiktok.com/music/original-sound-7599121120045927198?refer=embed">♬ original sound - Iian Kehn</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-        <br />
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@iiankehn/video/7599111013258104094" data-video-id="7599111013258104094" style="max-width: 605px;min-width: 325px; background-color: black; color: white;" > <section> <a target="_blank" title="@iiankehn" href="https://www.tiktok.com/@iiankehn?refer=embed">@iiankehn</a> I think it’s honestly time to get away from Windows <a title="microsoft" target="_blank" href="https://www.tiktok.com/tag/microsoft?refer=embed">#microsoft</a> <a title="ai" target="_blank" href="https://www.tiktok.com/tag/ai?refer=embed">#ai</a> <a title="windows" target="_blank" href="https://www.tiktok.com/tag/windows?refer=embed">#windows</a> <a title="linux" target="_blank" href="https://www.tiktok.com/tag/linux?refer=embed">#linux</a> <a title="techtok" target="_blank" href="https://www.tiktok.com/tag/techtok?refer=embed">#techtok</a> <a target="_blank" title="♬ original sound - Iian Kehn" href="https://www.tiktok.com/music/original-sound-7599111016550533918?refer=embed">♬ original sound - Iian Kehn</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+        <h1 class="font-sans text-4xl md:text-5xl font-semibold tracking-tight mb-2">Videos</h1>
+        <p class="text-zinc-400 font-sans text-sm md:text-base mb-10 max-w-xl">
+            Short-form tech commentary and updates from Sevan Core — Apple, Microsoft, and the wider ecosystem.
+        </p>
+
+        <section class="space-y-12" aria-label="Video embeds">
+            <div class="flex justify-center">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@iiankehn/video/7600988767087840543" data-video-id="7600988767087840543" style="max-width: 605px; min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@iiankehn" href="https://www.tiktok.com/@iiankehn?refer=embed">@iiankehn</a>
+                        Apple Creator Studio is here
+                        <a title="tech" target="_blank" href="https://www.tiktok.com/tag/tech?refer=embed">#tech</a>
+                        <a title="apple" target="_blank" href="https://www.tiktok.com/tag/apple?refer=embed">#apple</a>
+                        <a title="creator" target="_blank" href="https://www.tiktok.com/tag/creator?refer=embed">#creator</a>
+                        <a title="studio" target="_blank" href="https://www.tiktok.com/tag/studio?refer=embed">#studio</a>
+                        <a target="_blank" title="♬ original sound - Iian Kehn" href="https://www.tiktok.com/music/original-sound-7600988764462844703?refer=embed">♬ original sound - Iian Kehn</a>
+                    </section>
+                </blockquote>
+            </div>
+            <div class="flex justify-center">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@iiankehn/video/7599121093776952606" data-video-id="7599121093776952606" style="max-width: 605px; min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@iiankehn" href="https://www.tiktok.com/@iiankehn?refer=embed">@iiankehn</a>
+                        My thoughts on Windows and Mac right now. Microsoft especially.
+                        <a title="windows" target="_blank" href="https://www.tiktok.com/tag/windows?refer=embed">#windows</a>
+                        <a title="microsoft" target="_blank" href="https://www.tiktok.com/tag/microsoft?refer=embed">#microsoft</a>
+                        <a title="ai" target="_blank" href="https://www.tiktok.com/tag/ai?refer=embed">#ai</a>
+                        <a title="mac" target="_blank" href="https://www.tiktok.com/tag/mac?refer=embed">#mac</a>
+                        <a title="apple" target="_blank" href="https://www.tiktok.com/tag/apple?refer=embed">#apple</a>
+                        <a target="_blank" title="♬ original sound - Iian Kehn" href="https://www.tiktok.com/music/original-sound-7599121120045927198?refer=embed">♬ original sound - Iian Kehn</a>
+                    </section>
+                </blockquote>
+            </div>
+            <div class="flex justify-center">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@iiankehn/video/7599111013258104094" data-video-id="7599111013258104094" style="max-width: 605px; min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@iiankehn" href="https://www.tiktok.com/@iiankehn?refer=embed">@iiankehn</a>
+                        I think it's honestly time to get away from Windows
+                        <a title="microsoft" target="_blank" href="https://www.tiktok.com/tag/microsoft?refer=embed">#microsoft</a>
+                        <a title="ai" target="_blank" href="https://www.tiktok.com/tag/ai?refer=embed">#ai</a>
+                        <a title="windows" target="_blank" href="https://www.tiktok.com/tag/windows?refer=embed">#windows</a>
+                        <a title="linux" target="_blank" href="https://www.tiktok.com/tag/linux?refer=embed">#linux</a>
+                        <a title="techtok" target="_blank" href="https://www.tiktok.com/tag/techtok?refer=embed">#techtok</a>
+                        <a target="_blank" title="♬ original sound - Iian Kehn" href="https://www.tiktok.com/music/original-sound-7599111016550533918?refer=embed">♬ original sound - Iian Kehn</a>
+                    </section>
+                </blockquote>
+            </div>
+        </section>
     </main>
 
-    <section class ="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
+    <section class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
         <h2 class="font-sans text-2xl md:text-3xl font-semibold mb-6">Find me on social</h2>
-        <a href="https://www.youtube.com/@iiankehn">YouTube</a> | <a href="https://www.tiktok.com/@iiankehn">TikTok</a> | <a href="https://www.instagram.com/iianakehn/">Instagram</a> | <a href="https://www.threads.com/@iianakehn">Threads</a> | <a href="https://www.twitter.com/iiankehn">Twitter</a>
+        <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-zinc-400">
+            <li><a href="https://www.youtube.com/@iiankehn" class="hover:text-zinc-200 transition-colors">YouTube</a></li>
+            <li><a href="https://www.tiktok.com/@iiankehn" class="hover:text-zinc-200 transition-colors">TikTok</a></li>
+            <li><a href="https://www.instagram.com/iianakehn/" class="hover:text-zinc-200 transition-colors">Instagram</a></li>
+            <li><a href="https://www.threads.com/@iianakehn" class="hover:text-zinc-200 transition-colors">Threads</a></li>
+            <li><a href="https://www.twitter.com/iiankehn" class="hover:text-zinc-200 transition-colors">Twitter</a></li>
+        </ul>
     </section>
+
     <footer class="border-t border-white/5 px-6 py-8 max-w-3xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 gap-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <p class="font-mono text-xs text-zinc-400 max-w-sm leading-relaxed">
                 Copyright &copy; 2026 Sevan Core, LLC. All rights reserved.
             </p>
         </div>
     </footer>
+
+    <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
