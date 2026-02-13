@@ -1,5 +1,14 @@
+function getApiBase() {
+  const meta = document.querySelector('meta[name="api-base"]');
+  const base = meta ? (meta.getAttribute('content') || '').trim() : '';
+  return base.replace(/\/+$/, '');
+}
+
 async function fetchJson(url, options) {
-  const res = await fetch(url, options);
+  const base = getApiBase();
+  const fullUrl = base ? base + url : url;
+  const opts = { ...options, credentials: 'include' };
+  const res = await fetch(fullUrl, opts);
   if (!res.ok) {
     const text = await res.text().catch(() => '');
     throw new Error(text || `Request failed with ${res.status}`);
@@ -10,17 +19,46 @@ async function fetchJson(url, options) {
 const form = document.getElementById('auth-form');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
+const passwordConfirmWrap = document.getElementById('password-confirm-wrap');
+const passwordConfirmInput = document.getElementById('password-confirm');
 const primaryBtn = document.getElementById('primary-btn');
 const modeBanner = document.getElementById('mode-banner');
 const statusEl = document.getElementById('status');
 const passkeyLoginBtn = document.getElementById('passkey-login-btn');
 const createPasskeyBtn = document.getElementById('create-passkey-btn');
+const toggleModeBtn = document.getElementById('toggle-mode-btn');
+const subtitleText = document.getElementById('subtitle-text');
 
 let hasUser = false;
+let isSignUpMode = false;
 
 function setStatus(msg, isError) {
   statusEl.textContent = msg || '';
   statusEl.className = 'text-[11px] font-mono ' + (isError ? 'text-red-300' : 'text-zinc-400');
+}
+
+function setSignUpMode(signUp) {
+  isSignUpMode = signUp;
+  if (passwordConfirmWrap) {
+    passwordConfirmWrap.classList.toggle('hidden', !signUp);
+  }
+  if (passwordConfirmInput) {
+    passwordConfirmInput.required = signUp;
+    passwordConfirmInput.value = '';
+  }
+  if (primaryBtn) {
+    primaryBtn.textContent = signUp ? 'Create account' : 'Sign in';
+  }
+  if (subtitleText) {
+    subtitleText.textContent = signUp ? 'Create an account to manage blog posts.' : 'Sign in to manage blog posts.';
+  }
+  passkeyLoginBtn.style.display = signUp ? 'none' : '';
+  setStatus('');
+}
+
+function updateToggleModeButton() {
+  if (!toggleModeBtn) return;
+  toggleModeBtn.textContent = isSignUpMode ? 'Already have an account? Sign in' : 'Create an account';
 }
 
 const logoutMessageEl = document.getElementById('logout-message');
@@ -41,12 +79,17 @@ async function init() {
     const info = await fetchJson('/auth/info');
     hasUser = !!info?.hasUser;
     if (!hasUser) {
-      modeBanner.textContent = 'No admin account found. Create the first admin user.';
-      primaryBtn.textContent = 'Create Admin Account';
+      modeBanner.textContent = 'Create the first admin account.';
+      primaryBtn.textContent = 'Create account';
+      setSignUpMode(true);
+      if (toggleModeBtn) toggleModeBtn.closest('p').classList.add('hidden');
     } else {
       modeBanner.textContent = 'Enter your credentials to sign in.';
       primaryBtn.textContent = 'Sign in';
+      setSignUpMode(false);
+      if (toggleModeBtn) toggleModeBtn.closest('p').classList.remove('hidden');
     }
+    updateToggleModeButton();
 
     if (!('PublicKeyCredential' in window)) {
       passkeyLoginBtn.disabled = true;
@@ -59,6 +102,12 @@ async function init() {
   }
 }
 
+toggleModeBtn.addEventListener('click', () => {
+  isSignUpMode = !isSignUpMode;
+  setSignUpMode(isSignUpMode);
+  updateToggleModeButton();
+});
+
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const username = usernameInput.value.trim();
@@ -69,10 +118,22 @@ form.addEventListener('submit', async (event) => {
     return;
   }
 
+  if (isSignUpMode) {
+    const confirmPassword = passwordConfirmInput ? passwordConfirmInput.value : '';
+    if (password !== confirmPassword) {
+      setStatus('Passwords do not match', true);
+      return;
+    }
+    if (password.length < 8) {
+      setStatus('Password must be at least 8 characters', true);
+      return;
+    }
+  }
+
   try {
-    setStatus(hasUser ? 'Signing in…' : 'Creating account…');
+    setStatus(isSignUpMode ? 'Creating account…' : 'Signing in…');
     const payload = { username, password };
-    if (!hasUser) {
+    if (isSignUpMode) {
       await fetchJson('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -88,11 +149,12 @@ form.addEventListener('submit', async (event) => {
 
     setStatus('Signed in', false);
     createPasskeyBtn.classList.remove('hidden');
-    window.location.href = '/admin/';
+    window.location.href = getApiBase() ? getApiBase() + '/admin/' : '/admin/';
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    setStatus('Authentication failed', true);
+    const message = (err && err.message) ? err.message : 'Authentication failed';
+    setStatus(message, true);
   }
 });
 
@@ -199,7 +261,7 @@ async function loginWithPasskey() {
     });
 
     setStatus('Signed in with passkey', false);
-    window.location.href = '/admin/';
+    window.location.href = getApiBase() ? getApiBase() + '/admin/' : '/admin/';
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);

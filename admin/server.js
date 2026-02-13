@@ -17,6 +17,12 @@ const {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Trust first proxy (e.g. nginx, Cloudflare) so req.secure and host are correct in production
+if (isProduction || process.env.TRUST_PROXY === '1') {
+  app.set('trust proxy', 1);
+}
 
 const ROOT_DIR = path.join(__dirname, '..');
 const POSTS_FILE = path.join(ROOT_DIR, 'blog', 'posts.js');
@@ -110,6 +116,19 @@ function decrypt(encryptedData) {
 
 app.use(express.json({ limit: '2mb' }));
 
+// Optional CORS for cross-origin login (e.g. login page on CDN, API on api.example.com)
+const corsOrigin = process.env.CORS_ORIGIN;
+if (corsOrigin) {
+  app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', corsOrigin);
+    res.set('Access-Control-Allow-Credentials', 'true');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+    next();
+  });
+}
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'dev-session-secret-change-me',
   resave: false,
@@ -117,6 +136,7 @@ app.use(session({
   cookie: {
     httpOnly: true,
     sameSite: 'lax',
+    secure: isProduction,
   },
 }));
 
@@ -368,20 +388,46 @@ app.get('/auth/info', (req, res) => {
   });
 });
 
-app.post('/auth/register', async (req, res) => {
-  const users = loadUsers();
-  if (users.length > 0) {
-    return res.status(400).json({ error: 'Registration disabled (admin already exists)' });
+app.get('/auth/me', (req, res) => {
+  if (!req.session || !req.session.userId) {
+    return res.status(401).json({ error: 'Not authenticated' });
   }
+  const users = loadUsers();
+  const user = users.find((u) => u.id === req.session.userId);
+  if (!user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  return res.json({
+    username: user.username,
+    passkeyCount: (user.passkeys || []).length,
+    passkeys: (user.passkeys || []).map((p, i) => ({
+      id: p.credentialID,
+      label: `Passkey ${i + 1}`,
+    })),
+  });
+});
+
+const MIN_PASSWORD_LENGTH = 8;
+
+app.post('/auth/register', async (req, res) => {
   const { username, password } = req.body || {};
-  if (!username || !password) {
-    return res.status(400).json({ error: 'username and password are required' });
+  const rawUsername = (username && typeof username === 'string') ? username.trim() : '';
+  if (!rawUsername || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    return res.status(400).json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+  }
+
+  const users = loadUsers();
+  if (users.some((u) => u.username.toLowerCase() === rawUsername.toLowerCase())) {
+    return res.status(409).json({ error: 'Username already taken' });
   }
 
   const passwordHash = await bcrypt.hash(password, 12);
   const user = {
     id: uuidv4(),
-    username,
+    username: rawUsername,
     passwordHash,
     passkeys: [],
   };
@@ -415,7 +461,65 @@ app.post('/auth/logout', (req, res) => {
   });
 });
 
-// Passkey (WebAuthn) configuration
+app.post('/auth/change-password', async (req, res) => {
+  if (!req.session || !req.session.userId) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  const { currentPassword, newPassword } = req.body || {};
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ error: 'Current password and new password are required' });
+  }
+  if (newPassword.length < MIN_PASSWORD_LENGTH) {
+    return res.status(400).json({ error: `New password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+  }
+  const users = loadUsers();
+  const user = users.find((u) => u.id === req.session.userId);
+  if (!user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  const ok = await bcrypt.compare(currentPassword, user.passwordHash || '');
+  if (!ok) {
+    return res.status(401).json({ error: 'Current password is incorrect' });
+  }
+  user.passwordHash = await bcrypt.hash(newPassword, 12);
+  updateUser(user);
+  return res.json({ ok: true });
+});
+
+app.delete('/auth/webauthn/credentials/:id', (req, res) => {
+  if (!req.session || !req.session.userId) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  const rawId = req.params.id ? decodeURIComponent(req.params.id) : '';
+  const credentialId = rawId.replace(/-/g, '+').replace(/_/g, '/');
+  if (!credentialId) {
+    return res.status(400).json({ error: 'Credential ID required' });
+  }
+  const users = loadUsers();
+  const user = users.find((u) => u.id === req.session.userId);
+  if (!user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  user.passkeys = user.passkeys || [];
+  const before = user.passkeys.length;
+  user.passkeys = user.passkeys.filter((cred) => {
+    if (cred.credentialID === credentialId || cred.credentialID === rawId) return false;
+    try {
+      const buf = base64url.toBuffer(cred.credentialID);
+      const decoded = base64url.encode(buf);
+      return decoded !== credentialId && decoded !== rawId;
+    } catch {
+      return true;
+    }
+  });
+  if (user.passkeys.length === before) {
+    return res.status(404).json({ error: 'Credential not found' });
+  }
+  updateUser(user);
+  return res.status(204).send();
+});
+
+// Passkey (WebAuthn) configuration — in production set RP_ID and RP_ORIGIN to your public URL (e.g. https://admin.example.com)
 const rpName = 'Sevan Core Admin';
 const rpID = process.env.RP_ID || 'localhost';
 const expectedOrigin = process.env.RP_ORIGIN || 'https://localhost:3000';

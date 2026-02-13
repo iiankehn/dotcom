@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Optional: set content to your API origin if login is served from another domain (e.g. content="https://api.example.com") -->
+  <meta name="api-base" content="" />
   <title>Admin Login // Sevan Core</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -28,7 +30,7 @@
 <body class="bg-base min-h-screen text-zinc-200 flex items-center justify-center px-4">
   <div class="w-full max-w-sm border border-white/10 rounded-2xl bg-surface/80 backdrop-blur-md p-6 space-y-4">
     <h1 class="text-xl font-medium tracking-tight">Sevan Core Admin</h1>
-    <p class="text-xs text-zinc-400 font-mono">
+    <p class="text-xs text-zinc-400 font-mono" id="subtitle-text">
       Sign in to manage blog posts.
     </p>
 
@@ -54,6 +56,15 @@
           autocomplete="current-password"
         />
       </div>
+      <div id="password-confirm-wrap" class="hidden">
+        <label class="block text-xs font-mono uppercase tracking-wide text-zinc-400 mb-1">Confirm password</label>
+        <input
+          id="password-confirm"
+          type="password"
+          class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
+          autocomplete="new-password"
+        />
+      </div>
 
       <div class="flex flex-col gap-2 pt-1">
         <button
@@ -72,6 +83,12 @@
         </button>
       </div>
     </form>
+
+    <p class="text-[11px] font-mono text-zinc-500 text-center pt-1">
+      <button type="button" id="toggle-mode-btn" class="hover:text-zinc-300 underline">
+        Create an account
+      </button>
+    </p>
 
     <button
       id="create-passkey-btn"
