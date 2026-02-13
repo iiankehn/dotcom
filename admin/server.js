@@ -140,10 +140,10 @@ app.use(session({
   },
 }));
 
-// Serve main site so posts can be viewed while the admin is running,
-// but never serve files under /admin from the public static handler.
+// Serve main site so posts can be viewed while the admin is running.
+// Skip static for /admin (served separately) and /auth (API routes only — static would return 405 for POST).
 app.use((req, res, next) => {
-  if (req.path.startsWith('/admin')) {
+  if (req.path.startsWith('/admin') || req.path.startsWith('/auth')) {
     return next();
   }
   return express.static(ROOT_DIR)(req, res, next);

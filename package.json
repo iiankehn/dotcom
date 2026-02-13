@@ -4,7 +4,8 @@
   "private": true,
   "description": "Sevan Core site tools (admin panel for blog posts)",
   "scripts": {
-    "admin": "node admin/server.js"
+    "admin": "node admin/server.js",
+    "reset-users": "node admin/reset-users.js"
   },
   "dependencies": {
     "@simplewebauthn/server": "^9.0.0",
