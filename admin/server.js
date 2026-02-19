@@ -26,7 +26,7 @@ if (isProduction || process.env.TRUST_PROXY === '1') {
 
 const ROOT_DIR = path.join(__dirname, '..');
 const POSTS_FILE = path.join(ROOT_DIR, 'blog', 'posts.js');
-const USERS_FILE = path.join(__dirname, 'users.json');
+const db = require('./db');
 const KEY_FILE = path.join(__dirname, '.encryption-key');
 const CERT_FILE = path.join(__dirname, '.ssl-cert.pem');
 const KEY_CERT_FILE = path.join(__dirname, '.ssl-key.pem');
@@ -143,7 +143,7 @@ app.use(session({
 // Auth API router — mounted before static so POST /auth/login etc. are never handled by static (which returns 405)
 const authRouter = express.Router();
 authRouter.get('/info', (req, res) => {
-  const users = loadUsers();
+  const users = db.getAllUsers();
   res.json({
     hasUser: users.length > 0,
     authenticated: !!req.session.userId,
@@ -153,18 +153,20 @@ authRouter.get('/me', (req, res) => {
   if (!req.session || !req.session.userId) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
-  const users = loadUsers();
-  const user = users.find((u) => u.id === req.session.userId);
+  const user = db.findUserById(req.session.userId);
   if (!user) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
+  const passkeys = user.passkeys || [];
   return res.json({
     username: user.username,
-    passkeyCount: (user.passkeys || []).length,
-    passkeys: (user.passkeys || []).map((p, i) => ({
+    passkeyCount: passkeys.length,
+    passkeys: passkeys.map((p, i) => ({
       id: p.credentialID,
       label: `Passkey ${i + 1}`,
     })),
+    hasPassword: !!user.passwordHash,
+    pendingPasskeyPrompt: !!req.session.pendingPasskeyPrompt,
   });
 });
 
@@ -180,8 +182,7 @@ authRouter.post('/register', async (req, res) => {
     return res.status(400).json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
   }
 
-  const users = loadUsers();
-  if (users.some((u) => u.username.toLowerCase() === rawUsername.toLowerCase())) {
+  if (db.findUserByUsername(rawUsername)) {
     return res.status(409).json({ error: 'Username already taken' });
   }
 
@@ -192,9 +193,9 @@ authRouter.post('/register', async (req, res) => {
     passwordHash,
     passkeys: [],
   };
-  users.push(user);
-  saveUsers(users);
+  db.createUser(user);
   req.session.userId = user.id;
+  req.session.pendingPasskeyPrompt = true; // prompt to add passkey on first login
   return res.status(201).json({ username: user.username });
 });
 
@@ -203,8 +204,7 @@ authRouter.post('/login', async (req, res) => {
   if (!username || !password) {
     return res.status(400).json({ error: 'username and password are required' });
   }
-  const users = loadUsers();
-  const user = users.find((u) => u.username === username);
+  const user = db.findUserByUsername(username);
   if (!user) {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
@@ -213,13 +213,44 @@ authRouter.post('/login', async (req, res) => {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
   req.session.userId = user.id;
-  return res.json({ username: user.username });
+  const passkeys = user.passkeys || [];
+  if (passkeys.length === 0) {
+    req.session.pendingPasskeyPrompt = true;
+  }
+  return res.json({ username: user.username, pendingPasskeyPrompt: passkeys.length === 0 });
 });
 
 authRouter.post('/logout', (req, res) => {
   req.session.destroy(() => {
     res.status(204).send();
   });
+});
+
+authRouter.post('/dismiss-passkey-prompt', (req, res) => {
+  if (req.session) {
+    req.session.pendingPasskeyPrompt = false;
+  }
+  res.status(204).send();
+});
+
+authRouter.post('/set-password', async (req, res) => {
+  if (!req.session || !req.session.userId) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  const user = db.findUserById(req.session.userId);
+  if (!user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  if (user.passwordHash) {
+    return res.status(400).json({ error: 'Use change-password to update an existing password' });
+  }
+  const { newPassword } = req.body || {};
+  if (!newPassword || newPassword.length < MIN_PASSWORD_LENGTH) {
+    return res.status(400).json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+  }
+  const hash = await bcrypt.hash(newPassword, 12);
+  db.updateUserPassword(user.id, hash);
+  return res.json({ ok: true });
 });
 
 authRouter.post('/change-password', async (req, res) => {
@@ -233,8 +264,7 @@ authRouter.post('/change-password', async (req, res) => {
   if (newPassword.length < MIN_PASSWORD_LENGTH) {
     return res.status(400).json({ error: `New password must be at least ${MIN_PASSWORD_LENGTH} characters` });
   }
-  const users = loadUsers();
-  const user = users.find((u) => u.id === req.session.userId);
+  const user = db.findUserById(req.session.userId);
   if (!user) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
@@ -242,8 +272,8 @@ authRouter.post('/change-password', async (req, res) => {
   if (!ok) {
     return res.status(401).json({ error: 'Current password is incorrect' });
   }
-  user.passwordHash = await bcrypt.hash(newPassword, 12);
-  updateUser(user);
+  const hash = await bcrypt.hash(newPassword, 12);
+  db.updateUserPassword(user.id, hash);
   return res.json({ ok: true });
 });
 
@@ -256,27 +286,24 @@ authRouter.delete('/webauthn/credentials/:id', (req, res) => {
   if (!credentialId) {
     return res.status(400).json({ error: 'Credential ID required' });
   }
-  const users = loadUsers();
-  const user = users.find((u) => u.id === req.session.userId);
+  const user = db.findUserById(req.session.userId);
   if (!user) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
-  user.passkeys = user.passkeys || [];
-  const before = user.passkeys.length;
-  user.passkeys = user.passkeys.filter((cred) => {
-    if (cred.credentialID === credentialId || cred.credentialID === rawId) return false;
+  const passkeys = user.passkeys || [];
+  const cred = passkeys.find((c) => {
+    if (c.credentialID === credentialId || c.credentialID === rawId) return true;
     try {
-      const buf = base64url.toBuffer(cred.credentialID);
-      const decoded = base64url.encode(buf);
-      return decoded !== credentialId && decoded !== rawId;
+      const decoded = base64url.encode(base64url.toBuffer(c.credentialID));
+      return decoded === credentialId || decoded === rawId;
     } catch {
-      return true;
+      return false;
     }
   });
-  if (user.passkeys.length === before) {
+  if (!cred) {
     return res.status(404).json({ error: 'Credential not found' });
   }
-  updateUser(user);
+  db.deletePasskey(user.id, cred.credentialID);
   return res.status(204).send();
 });
 
@@ -285,17 +312,16 @@ const rpName = 'Sevan Core Admin';
 const rpID = process.env.RP_ID || 'localhost';
 const expectedOrigin = process.env.RP_ORIGIN || 'https://localhost:3000';
 
-authRouter.post('/webauthn/register/options', (req, res) => {
+authRouter.post('/webauthn/register/options', async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
-  const users = loadUsers();
-  const user = users.find((u) => u.id === req.session.userId);
+  const user = db.findUserById(req.session.userId);
   if (!user) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
-  const options = generateRegistrationOptions({
+  const options = await generateRegistrationOptions({
     rpName,
     rpID,
     userID: user.id,
@@ -319,8 +345,7 @@ authRouter.post('/webauthn/register/verify', async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
-  const users = loadUsers();
-  const user = users.find((u) => u.id === req.session.userId);
+  const user = db.findUserById(req.session.userId);
   if (!user) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
@@ -345,24 +370,9 @@ authRouter.post('/webauthn/register/verify', async (req, res) => {
       counter,
     } = registrationInfo;
 
-    const newPasskey = {
-      credentialID: base64url(credentialID),
-      credentialPublicKey: base64url(credentialPublicKey),
-      counter,
-    };
-
-    user.passkeys = user.passkeys || [];
-    const existingIdx = user.passkeys.findIndex(
-      (cred) => cred.credentialID === newPasskey.credentialID,
-    );
-    if (existingIdx >= 0) {
-      user.passkeys[existingIdx] = newPasskey;
-    } else {
-      user.passkeys.push(newPasskey);
-    }
-
-    updateUser(user);
+    db.addPasskey(user.id, base64url(credentialID), base64url(credentialPublicKey), counter);
     req.session.currentChallenge = undefined;
+    req.session.pendingPasskeyPrompt = false;
     return res.json({ verified: true });
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -376,8 +386,7 @@ authRouter.post('/webauthn/login/options', (req, res) => {
   if (!username) {
     return res.status(400).json({ error: 'username is required' });
   }
-  const users = loadUsers();
-  const user = users.find((u) => u.username === username);
+  const user = db.findUserByUsername(username);
   if (!user) {
     return res.status(404).json({ error: 'User not found' });
   }
@@ -397,8 +406,7 @@ authRouter.post('/webauthn/login/options', (req, res) => {
 });
 
 authRouter.post('/webauthn/login/verify', async (req, res) => {
-  const users = loadUsers();
-  const user = users.find((u) => u.id === req.session.loginUserId);
+  const user = db.findUserById(req.session.loginUserId);
   if (!user) {
     return res.status(400).json({ error: 'No pending WebAuthn login' });
   }
@@ -432,8 +440,7 @@ authRouter.post('/webauthn/login/verify', async (req, res) => {
       return res.status(400).json({ error: 'Authentication failed' });
     }
 
-    credRecord.counter = authenticationInfo.newCounter;
-    updateUser(user);
+    db.updatePasskeyCounter(user.id, credRecord.credentialID, authenticationInfo.newCounter);
 
     req.session.userId = user.id;
     req.session.currentChallenge = undefined;
@@ -458,62 +465,15 @@ app.use((req, res, next) => {
   return express.static(ROOT_DIR)(req, res, next);
 });
 
-function loadUsers() {
-  if (!fs.existsSync(USERS_FILE)) {
-    return [];
-  }
-  try {
-    const raw = fs.readFileSync(USERS_FILE, 'utf8');
-    let decrypted;
-    try {
-      decrypted = decrypt(raw);
-    } catch {
-      // If decryption fails, try parsing as plain JSON (for migration)
-      try {
-        const data = JSON.parse(raw || '[]');
-        if (Array.isArray(data) && data.length > 0) {
-          // Migrate existing plain file to encrypted
-          saveUsers(data);
-          return data;
-        }
-      } catch {}
-      return [];
-    }
-    const data = JSON.parse(decrypted || '[]');
-    return Array.isArray(data) ? data : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveUsers(users) {
-  const json = JSON.stringify(users, null, 2);
-  const encrypted = encrypt(json);
-  fs.writeFileSync(USERS_FILE, encrypted, 'utf8');
-}
-
-function findUserByUsername(username) {
-  const users = loadUsers();
-  return users.find((u) => u.username === username) || null;
-}
-
-function updateUser(user) {
-  const users = loadUsers();
-  const idx = users.findIndex((u) => u.id === user.id);
-  if (idx === -1) return;
-  users[idx] = user;
-  saveUsers(users);
-}
-
 function requireAuth(req, res, next) {
   if (req.session && req.session.userId) {
     return next();
   }
-  // Allow login and auth endpoints
-  if (req.path.startsWith('/admin/login') || req.path.startsWith('/auth/')) {
+  const allowed = ['/admin/login', '/admin/signup'];
+  const pathAllowed = allowed.some((p) => req.path.startsWith(p)) || req.path.startsWith('/auth/');
+  if (pathAllowed) {
     return next();
   }
-  // Protect admin UI and API routes
   if (req.path.startsWith('/admin') || req.path.startsWith('/api/')) {
     if (req.accepts('html')) {
       return res.redirect('/admin/login');

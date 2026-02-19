@@ -1,10 +1,16 @@
 (function () {
   const usernameEl = document.getElementById('profile-username');
+  const changePasswordSection = document.getElementById('change-password-section');
+  const setPasswordSection = document.getElementById('set-password-section');
   const changePasswordForm = document.getElementById('change-password-form');
+  const setPasswordForm = document.getElementById('set-password-form');
   const currentPasswordInput = document.getElementById('current-password');
   const newPasswordInput = document.getElementById('new-password');
   const newPasswordConfirmInput = document.getElementById('new-password-confirm');
+  const setNewPasswordInput = document.getElementById('set-new-password');
+  const setNewPasswordConfirmInput = document.getElementById('set-new-password-confirm');
   const passwordStatusEl = document.getElementById('password-status');
+  const setPasswordStatusEl = document.getElementById('set-password-status');
   const passkeysListEl = document.getElementById('passkeys-list');
   const passkeysStatusEl = document.getElementById('passkeys-status');
   const accountLogoutLink = document.getElementById('account-logout');
@@ -12,6 +18,11 @@
   function setPasswordStatus(msg, isError) {
     passwordStatusEl.textContent = msg || '';
     passwordStatusEl.className = 'text-[11px] font-mono min-h-[1.25rem] ' + (isError ? 'text-red-300' : 'text-zinc-400');
+  }
+
+  function setSetPasswordStatus(msg, isError) {
+    setPasswordStatusEl.textContent = msg || '';
+    setPasswordStatusEl.className = 'text-[11px] font-mono min-h-[1.25rem] ' + (isError ? 'text-red-300' : 'text-zinc-400');
   }
 
   async function fetchJson(url, options) {
@@ -27,6 +38,16 @@
     try {
       const me = await fetchJson('/auth/me');
       if (usernameEl) usernameEl.textContent = me.username || '—';
+
+      if (changePasswordSection && setPasswordSection) {
+        if (me.hasPassword) {
+          changePasswordSection.classList.remove('hidden');
+          setPasswordSection.classList.add('hidden');
+        } else {
+          changePasswordSection.classList.add('hidden');
+          setPasswordSection.classList.remove('hidden');
+        }
+      }
 
       if (passkeysListEl) {
         passkeysListEl.innerHTML = '';
@@ -94,6 +115,41 @@
         newPasswordConfirmInput.value = '';
       } catch (err) {
         setPasswordStatus(err.message || 'Failed to update password', true);
+      }
+    });
+  }
+
+  if (setPasswordForm) {
+    setPasswordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newPw = setNewPasswordInput.value;
+      const confirmPw = setNewPasswordConfirmInput.value;
+      if (!newPw) {
+        setSetPasswordStatus('Password is required', true);
+        return;
+      }
+      if (newPw.length < 8) {
+        setSetPasswordStatus('Password must be at least 8 characters', true);
+        return;
+      }
+      if (newPw !== confirmPw) {
+        setSetPasswordStatus('Passwords do not match', true);
+        return;
+      }
+      try {
+        setSetPasswordStatus('Setting…');
+        await fetchJson('/auth/set-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ newPassword: newPw }),
+        });
+        setSetPasswordStatus('Password set.', false);
+        setNewPasswordInput.value = '';
+        setNewPasswordConfirmInput.value = '';
+        setPasswordSection.classList.add('hidden');
+        if (changePasswordSection) changePasswordSection.classList.remove('hidden');
+      } catch (err) {
+        setSetPasswordStatus(err.message || 'Failed to set password', true);
       }
     });
   }

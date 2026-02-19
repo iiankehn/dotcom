@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased bg-black text-zinc-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="api-base" content="" />
+  <title>Secure your account // Sevan Core Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: { base: '#050505', surface: '#121212', muted: '#525252', accent: '#262626' }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-base min-h-screen text-zinc-200 flex items-center justify-center px-4">
+  <div class="w-full max-w-sm border border-white/10 rounded-2xl bg-surface/80 backdrop-blur-md p-6 space-y-4">
+    <h1 class="text-xl font-medium tracking-tight">Secure your account</h1>
+    <p class="text-xs text-zinc-400 font-mono">Add a passkey so you can sign in without a password next time. Use your device fingerprint, Face ID, or a security key.</p>
+
+    <button
+      id="add-passkey-btn"
+      type="button"
+      class="w-full px-3 py-2.5 rounded-md bg-zinc-100 text-black text-xs font-mono uppercase tracking-wide hover:bg-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+    >
+      Add passkey
+    </button>
+
+    <p class="text-[11px] font-mono text-zinc-500 text-center">
+      <a href="profile.html" id="skip-link" class="text-zinc-500 hover:text-zinc-400 underline">Skip for now</a>
+    </p>
+
+    <div id="status" class="text-[11px] font-mono text-zinc-400 min-h-[1.25rem]"></div>
+  </div>
+  <script src="add-passkey.js"></script>
+</body>
+</html>

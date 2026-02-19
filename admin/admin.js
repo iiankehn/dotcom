@@ -186,6 +186,17 @@ if (accountLogoutLink) {
   });
 }
 
-// Initial load
-loadPosts();
+// Redirect to add-passkey if first login and no passkey yet
+(async function init() {
+  try {
+    const me = await fetchJson('/auth/me', { credentials: 'include' });
+    if (me && me.pendingPasskeyPrompt) {
+      window.location.href = '/admin/add-passkey.html';
+      return;
+    }
+  } catch (_) {
+    // Not authenticated or error; loadPosts may 401 and redirect to login
+  }
+  loadPosts();
+})();
 

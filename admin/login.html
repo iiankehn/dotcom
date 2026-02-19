@@ -3,38 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Optional: set content to your API origin if login is served from another domain (e.g. content="https://api.example.com") -->
   <meta name="api-base" content="" />
-  <title>Admin Login // Sevan Core</title>
+  <title>Sign in // Sevan Core Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            base: '#050505',
-            surface: '#121212',
-            muted: '#525252',
-            accent: '#262626'
-          }
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: { base: '#050505', surface: '#121212', muted: '#525252', accent: '#262626' }
         }
       }
-    }
+    };
   </script>
 </head>
 <body class="bg-base min-h-screen text-zinc-200 flex items-center justify-center px-4">
   <div class="w-full max-w-sm border border-white/10 rounded-2xl bg-surface/80 backdrop-blur-md p-6 space-y-4">
-    <h1 class="text-xl font-medium tracking-tight">Sevan Core Admin</h1>
-    <p class="text-xs text-zinc-400 font-mono" id="subtitle-text">
-      Sign in to manage blog posts.
-    </p>
+    <h1 class="text-xl font-medium tracking-tight">Sign in</h1>
+    <p class="text-xs text-zinc-400 font-mono">Use your passkey or password to access the admin.</p>
 
-    <div id="mode-banner" class="text-[11px] font-mono text-zinc-400"></div>
     <div id="logout-message" class="hidden rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-200 font-mono"></div>
 
     <form id="auth-form" class="space-y-3">
@@ -45,63 +33,54 @@
           type="text"
           class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
           autocomplete="username"
-        />
-      </div>
-      <div>
-        <label class="block text-xs font-mono uppercase tracking-wide text-zinc-400 mb-1">Password</label>
-        <input
-          id="password"
-          type="password"
-          class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
-          autocomplete="current-password"
-        />
-      </div>
-      <div id="password-confirm-wrap" class="hidden">
-        <label class="block text-xs font-mono uppercase tracking-wide text-zinc-400 mb-1">Confirm password</label>
-        <input
-          id="password-confirm"
-          type="password"
-          class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
-          autocomplete="new-password"
+          placeholder="Your username"
         />
       </div>
 
       <div class="flex flex-col gap-2 pt-1">
         <button
-          id="primary-btn"
+          id="passkey-btn"
+          type="button"
+          class="w-full px-3 py-2.5 rounded-md bg-zinc-100 text-black text-xs font-mono uppercase tracking-wide hover:bg-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          Sign in with Passkey
+        </button>
+        <button
+          id="password-toggle"
+          type="button"
+          class="w-full px-3 py-2 rounded-md border border-white/15 text-xs font-mono text-zinc-400 hover:bg-white/5 transition-colors"
+        >
+          Use password instead
+        </button>
+      </div>
+
+      <div id="password-section" class="hidden space-y-3 pt-2 border-t border-white/10">
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wide text-zinc-400 mb-1">Password</label>
+          <input
+            id="password"
+            type="password"
+            class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
+            autocomplete="current-password"
+          />
+        </div>
+        <button
+          id="password-submit"
           type="submit"
           class="w-full px-3 py-2 rounded-md bg-zinc-100 text-black text-xs font-mono uppercase tracking-wide hover:bg-white transition-colors"
         >
-          Continue
-        </button>
-        <button
-          id="passkey-login-btn"
-          type="button"
-          class="w-full px-3 py-2 rounded-md border border-white/15 text-xs font-mono uppercase tracking-wide text-zinc-200 hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          Sign in with Passkey
+          Sign in with password
         </button>
       </div>
     </form>
 
     <p class="text-[11px] font-mono text-zinc-500 text-center pt-1">
-      <button type="button" id="toggle-mode-btn" class="hover:text-zinc-300 underline">
-        Create an account
-      </button>
+      Don’t have an account?
+      <a href="signup.html" class="text-zinc-300 hover:text-white underline">Create one</a>
     </p>
-
-    <button
-      id="create-passkey-btn"
-      type="button"
-      class="hidden w-full px-3 py-2 rounded-md border border-emerald-500/60 text-xs font-mono uppercase tracking-wide text-emerald-200 hover:bg-emerald-500/10 transition-colors"
-    >
-      Add Passkey to Account
-    </button>
 
     <div id="status" class="text-[11px] font-mono text-zinc-400 min-h-[1.25rem]"></div>
   </div>
-
   <script src="login.js"></script>
 </body>
 </html>
-

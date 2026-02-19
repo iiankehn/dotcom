@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased bg-black text-zinc-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="api-base" content="" />
+  <title>Create account // Sevan Core Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: { base: '#050505', surface: '#121212', muted: '#525252', accent: '#262626' }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-base min-h-screen text-zinc-200 flex items-center justify-center px-4">
+  <div class="w-full max-w-sm border border-white/10 rounded-2xl bg-surface/80 backdrop-blur-md p-6 space-y-4">
+    <h1 class="text-xl font-medium tracking-tight">Create account</h1>
+    <p class="text-xs text-zinc-400 font-mono">Choose a username and password. You’ll add a passkey next so you can sign in without a password.</p>
+
+    <form id="signup-form" class="space-y-3">
+      <div>
+        <label class="block text-xs font-mono uppercase tracking-wide text-zinc-400 mb-1">Username</label>
+        <input
+          id="username"
+          type="text"
+          class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
+          autocomplete="username"
+          placeholder="Your username"
+        />
+      </div>
+      <div>
+        <label class="block text-xs font-mono uppercase tracking-wide text-zinc-400 mb-1">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
+          autocomplete="new-password"
+          placeholder="At least 8 characters"
+        />
+      </div>
+      <div>
+        <label class="block text-xs font-mono uppercase tracking-wide text-zinc-400 mb-1">Confirm password</label>
+        <input
+          id="password-confirm"
+          type="password"
+          class="w-full px-3 py-2 rounded-md bg-surface border border-white/10 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-400"
+          autocomplete="new-password"
+        />
+      </div>
+      <button
+        type="submit"
+        class="w-full px-3 py-2.5 rounded-md bg-zinc-100 text-black text-xs font-mono uppercase tracking-wide hover:bg-white transition-colors"
+      >
+        Create account
+      </button>
+    </form>
+
+    <p class="text-[11px] font-mono text-zinc-500 text-center pt-1">
+      Already have an account?
+      <a href="login.html" class="text-zinc-300 hover:text-white underline">Sign in</a>
+    </p>
+
+    <div id="status" class="text-[11px] font-mono text-zinc-400 min-h-[1.25rem]"></div>
+  </div>
+  <script src="signup.js"></script>
+</body>
+</html>
